@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-
+import { Analytics } from "@vercel/analytics/react"
 // Improved Metadata for SEO
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"; // Replace with your actual URL or use env var
 const siteTitle = "Free QR Code Generator | Create Custom QR Codes Online";
@@ -10,6 +10,7 @@ const siteDescription = "Easily create custom QR codes online for websites, text
 const ogImageUrl = process.env.NEXT_PUBLIC_OG_IMAGE_URL || `${siteUrl}/og-image.png`; // Use env var or construct
 
 export const metadata: Metadata = {
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : new URL("https://yourdomain.com"),
   title: siteTitle,
   description: siteDescription,
   keywords: ["QR code generator", "free QR code", "custom QR code", "online QR code", "QR code creator", "website QR", "text QR", "PDF QR", "image QR"],
@@ -62,6 +63,11 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
+  // Google Site Verification
+  verification: {
+    google: '0h6mLogELJG-SKu5XC5V5dTzYRqmcD02VKnpBTtHbz4',
+    // Add other verification tags if needed (e.g., yandex, other)
+  },
 };
 
 const geistSans = Geist({
@@ -94,6 +100,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics/>
+        
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
