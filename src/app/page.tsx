@@ -186,12 +186,40 @@ export default function Home() {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         const img = new window.Image();
-        
+
+        // Define margin size (adjust as needed)
+        const margin = 10; // Same as padding used in preview calculation (20 / 2)
+        const canvasWidth = qrWidth; 
+        const canvasHeight = qrHeight;
+
         img.onload = () => {
-          canvas.width = qrWidth;
-          canvas.height = qrHeight;
-          ctx?.drawImage(img, 0, 0, qrWidth, qrHeight);
+          if (!ctx) return;
+
+          canvas.width = canvasWidth;
+          canvas.height = canvasHeight;
+
+          // Fill background unless transparent
+          if (!isTransparent) {
+            ctx.fillStyle = invert ? color : bgColor; // Use appropriate background color
+            // Ensure background is white if not inverted and not transparent for consistency
+            if (!invert) ctx.fillStyle = '#FFFFFF'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
           
+          // Calculate the actual size to draw the QR code based on canvas size and margin
+          // Use Math.min to handle non-square canvases, draw QR code as largest possible square with margin
+          const availableWidth = canvas.width - margin * 2;
+          const availableHeight = canvas.height - margin * 2;
+          const qrDrawSize = Math.max(10, Math.min(availableWidth, availableHeight)); // Ensure size is positive
+
+          // Calculate offsets to center the QR code
+          const offsetX = (canvas.width - qrDrawSize) / 2;
+          const offsetY = (canvas.height - qrDrawSize) / 2;
+
+          // Draw the QR code image onto the canvas, centered with margin
+          ctx.drawImage(img, offsetX, offsetY, qrDrawSize, qrDrawSize);
+
+          // Proceed with download
           const pngUrl = canvas.toDataURL('image/png');
           const downloadLink = document.createElement('a');
           downloadLink.href = pngUrl;
@@ -200,7 +228,8 @@ export default function Home() {
           downloadLink.click();
           document.body.removeChild(downloadLink);
         };
-        
+
+        // Set the image source
         img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
       } catch (error) {
         console.error('Error downloading QR code:', error);

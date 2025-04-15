@@ -4,13 +4,13 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react"
 // Improved Metadata for SEO
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"; // Replace with your actual URL or use env var
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://get-qr-generator.vercel.app/"; // Replace with your actual URL or use env var
 const siteTitle = "Free QR Code Generator | Create Custom QR Codes Online";
 const siteDescription = "Easily create custom QR codes online for websites, text, PDFs, and images. Customize colors, size, and error correction. Free, fast, and responsive.";
-const ogImageUrl = process.env.NEXT_PUBLIC_OG_IMAGE_URL || `${siteUrl}/og-image.png`; // Use env var or construct
+const ogImageUrl = process.env.NEXT_PUBLIC_OG_IMAGE_URL || `${siteUrl}/.png`; // Use env var or construct
 
 export const metadata: Metadata = {
-  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : new URL("https://yourdomain.com"),
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : new URL("https://get-qr-generator.vercel.app/"),
   title: siteTitle,
   description: siteDescription,
   keywords: ["QR code generator", "free QR code", "custom QR code", "online QR code", "QR code creator", "website QR", "text QR", "PDF QR", "image QR"],
