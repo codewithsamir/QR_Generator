@@ -61,7 +61,7 @@ export async function POST(request: Request) {
     console.error('API Route Error:', error);
     // Determine if the error is a Cloudinary API error or something else
     let errorMessage = 'An unknown error occurred during upload.';
-    let statusCode = 500;
+    const statusCode = 500;
 
     if (error instanceof Error) {
        errorMessage = error.message;

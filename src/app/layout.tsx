@@ -9,17 +9,6 @@ const siteTitle = "Free QR Code Generator | Create Custom QR Codes Online";
 const siteDescription = "Easily create custom QR codes online for websites, text, PDFs, and images. Customize colors, size, and error correction. Free, fast, and responsive.";
 const ogImageUrl = process.env.NEXT_PUBLIC_OG_IMAGE_URL || `${siteUrl}/og-image.png`; // Use env var or construct
 
-// Helper function to safely create URL object for metadataBase
-function createMetadataBase(url: string): URL | undefined {
-  try {
-    return new URL(url);
-  } catch (e) {
-    console.error("Failed to create metadataBase URL:", e);
-    // Return a default valid URL or undefined if preferred
-    return new URL("https://yourdomain.com"); // Fallback
-  }
-}
-
 export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
